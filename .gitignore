@@ -2,3 +2,5 @@ DetailedPeopleList.xcodeproj/project.xcworkspace/*
 DetailedPeopleList.xcodeproj/project.xcworkspace//**/*
 DetailedPeopleList.xcodeproj/xcuserdata/*
 DetailedPeopleList.xcodeproj/xcuserdata/**/*
+.DS_Store
+**/.DS_Store
