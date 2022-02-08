@@ -8,37 +8,48 @@ import SwiftUI
 
 struct DetailedDataView: View {
     
-    private var person: Person
+    @ObservedObject private var viewModel: DetailedDataViewModel
+//    @State var shouldPresentError = false
     
-    init(person: Person) {
-        self.person = person
+    init(viewModel: DetailedDataViewModel) {
+        self.viewModel = viewModel
     }
     
     var body: some View {
-        VStack{
-            List{
-                HStack{
-                    Text("Name")
-                    Spacer()
-                    Text(person.name)
-                }
-                HStack{
-                    Text("Height")
-                    Spacer()
-                    Text(person.height)
-                }
-                HStack{
-                    Text("Hair Color")
-                    Spacer()
-                    Text(person.hairColor)
-                }
-                HStack{
-                    Text("Skin Color")
-                    Spacer()
-                    Text(person.skinColor)
+        ScrollView {
+            LazyVStack {
+                if let person = viewModel.person {
+                        HStack{
+                            Text("Name")
+                            Spacer()
+                            Text(person.name)
+                        }
+                        HStack{
+                            Text("Height")
+                            Spacer()
+                            Text(person.height)
+                        }
+                        HStack{
+                            Text("Hair Color")
+                            Spacer()
+                            Text(person.hairColor)
+                        }
+                        HStack{
+                            Text("Skin Color")
+                            Spacer()
+                            Text(person.skinColor)
+                        }
+                } else {
+                    
+                    ProgressView()
+                        .progressViewStyle(.circular)
                 }
             }
-            
+//            .alert("Something goes wrong", isPresented: $viewModel.shouldPresentError) {
+//                Button("Cancel", role: .cancel) {}
+//            }
+        }.task {
+            await viewModel.fetchPerson()
         }
         
     }
@@ -47,26 +58,7 @@ struct DetailedDataView: View {
 
 struct DetailedDataView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailedDataView(
-            person: Person(
-                name: "Luke",
-                height: "n/a",
-                mass: "n/a",
-                hairColor: "n/a",
-                skinColor: "n/a",
-                eyeColor: "n/a",
-                birthYear: "n/a",
-                gender: .male,
-                homeworld: "n/a",
-                films: [],
-                species: [],
-                vehicles: [],
-                starships: [],
-                created: "n/a",
-                edited: "n/a",
-                url: "n/a"
-            )
-        )
+        DetailedDataView(viewModel: .init(url: URL(string: "")!))
     }
 }
 

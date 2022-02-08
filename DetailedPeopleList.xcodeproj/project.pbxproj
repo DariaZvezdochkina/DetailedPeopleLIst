@@ -18,6 +18,8 @@
 		5E14D9A927A2B2B4005A8E1C /* DetailedPeopleListApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E14D9A827A2B2B4005A8E1C /* DetailedPeopleListApp.swift */; };
 		5E14D9AD27A2B2B9005A8E1C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E14D9AC27A2B2B9005A8E1C /* Assets.xcassets */; };
 		5E14D9B027A2B2B9005A8E1C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E14D9AF27A2B2B9005A8E1C /* Preview Assets.xcassets */; };
+		5E8A346427ABEF6600BE2B80 /* DetailedDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8A346327ABEF6600BE2B80 /* DetailedDataViewModel.swift */; };
+		5E8A346627ABF2CC00BE2B80 /* PersonFetcherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8A346527ABF2CC00BE2B80 /* PersonFetcherService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +35,8 @@
 		5E14D9A827A2B2B4005A8E1C /* DetailedPeopleListApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedPeopleListApp.swift; sourceTree = "<group>"; };
 		5E14D9AC27A2B2B9005A8E1C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5E14D9AF27A2B2B9005A8E1C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		5E8A346327ABEF6600BE2B80 /* DetailedDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedDataViewModel.swift; sourceTree = "<group>"; };
+		5E8A346527ABF2CC00BE2B80 /* PersonFetcherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonFetcherService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +63,7 @@
 			isa = PBXGroup;
 			children = (
 				18E0B61527AA833F00E80A05 /* ContentViewModel.swift */,
+				5E8A346327ABEF6600BE2B80 /* DetailedDataViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -69,6 +74,7 @@
 				18E0B61927AA833F00E80A05 /* DecodingService.swift */,
 				18E0B61627AA833F00E80A05 /* Network Service.swift */,
 				18E0B61A27AA833F00E80A05 /* PeopleFetcherService.swift */,
+				5E8A346527ABF2CC00BE2B80 /* PersonFetcherService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -184,6 +190,8 @@
 			files = (
 				18E0B61D27AA833F00E80A05 /* People.swift in Sources */,
 				18E0B62027AA833F00E80A05 /* DetailedDataView.swift in Sources */,
+				5E8A346627ABF2CC00BE2B80 /* PersonFetcherService.swift in Sources */,
+				5E8A346427ABEF6600BE2B80 /* DetailedDataViewModel.swift in Sources */,
 				18E0B61C27AA833F00E80A05 /* Person.swift in Sources */,
 				18E0B62227AA833F00E80A05 /* DecodingService.swift in Sources */,
 				18E0B61F27AA833F00E80A05 /* Network Service.swift in Sources */,

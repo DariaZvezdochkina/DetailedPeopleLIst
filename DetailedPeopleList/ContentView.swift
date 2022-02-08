@@ -17,9 +17,9 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            List{
+            List {
                 ForEach(viewModel.results, id: \.url) { item in
-                    NavigationLink(destination: DetailedDataView(person: item)) {
+                    NavigationLink(destination: DetailedDataView(viewModel: .init(url: URL(string: item.url)!))) {
                         VStack {
                             Text(item.name)
                         }
@@ -39,5 +39,6 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
 
 
