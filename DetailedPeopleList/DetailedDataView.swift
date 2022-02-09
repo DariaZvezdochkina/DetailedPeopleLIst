@@ -45,6 +45,7 @@ struct DetailedDataView: View {
                         .progressViewStyle(.circular)
                 }
             }
+            .padding(.horizontal)
 //            .alert("Something goes wrong", isPresented: $viewModel.shouldPresentError) {
 //                Button("Cancel", role: .cancel) {}
 //            }
