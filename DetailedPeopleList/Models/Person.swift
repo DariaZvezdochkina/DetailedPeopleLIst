@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Person: Decodable {
+struct Person: Decodable, Identifiable, Equatable {
     let name, height, mass, hairColor: String
     let skinColor, eyeColor, birthYear: String
     let gender: Gender
@@ -15,6 +15,7 @@ struct Person: Decodable {
     let films, species, vehicles, starships: [String]
     let created, edited: String
     let url: String
+    let id = UUID()
     
     enum CodingKeys: String, CodingKey {
         case name, height, mass
@@ -26,8 +27,9 @@ struct Person: Decodable {
     }
 }
 
-enum Gender: String, Decodable {
+enum Gender: String, Decodable, Equatable {
     case female = "female"
     case male = "male"
     case nA = "n/a"
 }
+

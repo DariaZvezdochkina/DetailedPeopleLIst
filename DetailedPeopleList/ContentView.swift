@@ -6,29 +6,70 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
+
+struct AppState: Equatable {
+    var results: IdentifiedArrayOf<Person> = []
+}
+
+enum AppAction: Equatable {
+    case fetchingData
+    case fetched(People)
+    
+}
+
+struct AppEnvironment {
+    let peopleFetcher = PeopleFetcherService()
+}
+
+let appReducer = Reducer<AppState, AppAction, AppEnvironment> { state, action, environment in
+    switch action {
+    case .fetchingData:
+        return Effect<People, Never>.future { completion in
+            Task {
+                let people = try! await environment.peopleFetcher.fetch()
+                completion(.success(people))
+            }
+        }
+        .map(AppAction.fetched)
+        .receive(on: DispatchQueue.main)
+        .eraseToEffect()
+        
+    case .fetched(let people):
+        state.results = IdentifiedArrayOf(uniqueElements: people.results)
+        return .none
+    }
+}
 
 struct ContentView: View {
+    let store: Store<AppState, AppAction>
     
     @ObservedObject private var viewModel: ContentViewModel
     
-    init(viewModel: ContentViewModel = .init()) {
+    init(
+        viewModel: ContentViewModel = .init(),
+        store: Store<AppState, AppAction>
+    ) {
         self.viewModel = viewModel
+        self.store = store
     }
     
     var body: some View {
         NavigationView {
-            List {
-                ForEach(viewModel.results, id: \.url) { item in
-                    NavigationLink(destination: DetailedDataView(viewModel: .init(url: URL(string: item.url)!))) {
-                        VStack {
-                            Text(item.name)
+            WithViewStore(store) { viewStore in
+                List {
+                    ForEach(viewStore.results) { item in
+                        NavigationLink(destination: DetailedDataView(viewModel: .init(url: URL(string: item.url)!))) {
+                            VStack {
+                                Text(item.name)
+                            }
                         }
+                        
                     }
-                    
                 }
-            }
-            .task {
-                await viewModel.fetchData()
+                .onAppear {
+                    viewStore.send(.fetchingData)
+                }
             }
         }
     }
@@ -36,7 +77,7 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(store: .init(initialState: .init(), reducer: appReducer, environment: .init()))
     }
 }
 

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct People: Decodable {
+struct People: Decodable, Equatable {
     let count: Int
     let next: String
     let previous: String?

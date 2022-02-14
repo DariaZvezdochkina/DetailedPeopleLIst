@@ -9,57 +9,56 @@ import SwiftUI
 struct DetailedDataView: View {
     
     @ObservedObject private var viewModel: DetailedDataViewModel
-//    @State var shouldPresentError = false
+    @State var shouldPresentError = false
     
     init(viewModel: DetailedDataViewModel) {
         self.viewModel = viewModel
     }
     
     var body: some View {
-        ScrollView {
-            LazyVStack {
-                if let person = viewModel.person {
-                        HStack{
-                            Text("Name")
-                            Spacer()
-                            Text(person.name)
-                        }
-                        HStack{
-                            Text("Height")
-                            Spacer()
-                            Text(person.height)
-                        }
-                        HStack{
-                            Text("Hair Color")
-                            Spacer()
-                            Text(person.hairColor)
-                        }
-                        HStack{
-                            Text("Skin Color")
-                            Spacer()
-                            Text(person.skinColor)
-                        }
-                } else {
-                    
-                    ProgressView()
-                        .progressViewStyle(.circular)
+        if let person = viewModel.person {
+            ScrollView {
+                LazyVStack {
+                    HStack{
+                        Text("Name")
+                        Spacer()
+                        Text(person.name)
+                    }
+                    HStack{
+                        Text("Height")
+                        Spacer()
+                        Text(person.height)
+                    }
+                    HStack{
+                        Text("Hair Color")
+                        Spacer()
+                        Text(person.hairColor)
+                    }
+                    HStack{
+                        Text("Skin Color")
+                        Spacer()
+                        Text(person.skinColor)
+                    }
                 }
             }
             .padding(.horizontal)
-//            .alert("Something goes wrong", isPresented: $viewModel.shouldPresentError) {
-//                Button("Cancel", role: .cancel) {}
-//            }
-        }.task {
-            await viewModel.fetchPerson()
+            .alert("Something goes wrong", isPresented: $viewModel.shouldPresentError) {
+                Button("Cancel", role: .cancel) {}
+            }
+        } else {
+            ProgressView()
+                .progressViewStyle(.circular)
+                .padding()
+                .task {
+                    await viewModel.fetchPerson()
+                }
         }
-        
     }
-    
 }
 
 struct DetailedDataView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailedDataView(viewModel: .init(url: URL(string: "")!))
+        DetailedDataView(viewModel: .init(url: URL(string: "https://swapi.dev/api/people/1/")!))
     }
 }
 

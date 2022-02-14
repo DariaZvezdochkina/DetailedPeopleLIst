@@ -19,3 +19,4 @@ final class DecodingService {
     return decodedResponse
   }
 }
+
