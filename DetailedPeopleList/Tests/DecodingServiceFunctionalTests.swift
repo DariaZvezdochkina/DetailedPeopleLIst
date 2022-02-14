@@ -12,17 +12,20 @@ class DecodingServiceFunctionalTests: XCTestCase {
     private var jsonData: Data!
     private var decodingService: DecodingService!
     private var referencePeople: People!
+    private var referencePerson: Person!
     
     override func setUpWithError() throws {
         decodingService = DecodingService()
         jsonData = .personJSONData
-        referencePeople = try! JSONDecoder().decode(People.self, from: .personJSONData)
+        referencePeople = try! JSONDecoder().decode(People.self, from: .peopleJSONData)
+        referencePerson = try! JSONDecoder().decode(Person.self, from: .personJSONData)
     }
     
     override func tearDownWithError() throws {
         decodingService = nil
         jsonData = nil
         referencePeople = nil
+        referencePerson = nil
     }
     
     func testExample() throws {
@@ -41,7 +44,7 @@ class DecodingServiceFunctionalTests: XCTestCase {
     }
     
     func testIncorrectJSONShouldNotBeParsedToPeopleObject() {
-        let receivedPerson = try? decodingService.decode(data: .personJSONData, of: Person.self)
+        let receivedPerson = try? decodingService.decode(data: .personJSONData, of: People.self)
         XCTAssertThrowsError(try decodingService.decode(data: .peopleJSONData, of: People.self), "???")
         XCTAssertNotEqual(receivedPerson, referencePeople, "Data does not match")
     }
@@ -52,6 +55,24 @@ class DecodingServiceFunctionalTests: XCTestCase {
         XCTAssertNil(receivedPeople, "???")
     }
     
+    func testCorrectPersonJSONShouldBeParsedToPersonObject() {
+        let receivedPerson = try? decodingService.decode(data: .personJSONData, of: Person.self)
+        XCTAssertNoThrow(try decodingService.decode(data: .personJSONData, of: Person.self), "Person JSON Data does not match with Person type")
+        XCTAssertNotNil(receivedPerson, "receivedPerson does not exists")
+        XCTAssertEqual(receivedPerson, referencePerson, "Received Data does not match")
+    }
+    
+    func testIncorrectJSONShouldNotBeParsedToPersonObject() {
+        let receivedPerson = try? decodingService.decode(data: .peopleJSONData, of: Person.self)
+        XCTAssertThrowsError(try decodingService.decode(data: .personJSONData, of: Person.self), "Person JSON Data does not match with Person type")
+        XCTAssertNotEqual(receivedPerson, referencePerson, "Data does not match")
+    }
+    
+    func testCorrectPersonJSONShouldNotBeParsedToPersonObject() {
+        let receivedPerson = try? decodingService.decode(data: .personJSONData, of: Person.self)
+        XCTAssertThrowsError(try decodingService.decode(data: .personJSONData, of: People.self), "Person Data does not conform to People type")
+        XCTAssertNil(receivedPerson, "The data cannot be after removing")
+    }
 }
 extension Data {
     static var peopleJSONData: Data {
