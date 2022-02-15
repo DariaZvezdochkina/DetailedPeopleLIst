@@ -12,7 +12,7 @@ struct Planet: Codable, Equatable, Identifiable {
     let rotationPeriod, orbitalPeriod, diameter: String
     let climate, gravity, terrain, surfaceWater: String
     let population: String
-    let residents: [Int]
+    let residents: [String]
     let films: [String]
     let created, edited: String
     let url: String
