@@ -7,7 +7,7 @@
 @testable import DetailedPeopleList
 import XCTest
 import SwiftUI
-class DecodingServiceFunctionalTests: XCTestCase {
+class DecodingServiceFunctionalPeopleTests: XCTestCase {
     
     private var jsonData: Data!
     private var decodingService: DecodingService!
@@ -28,15 +28,7 @@ class DecodingServiceFunctionalTests: XCTestCase {
         referencePerson = nil
     }
     
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
-    
-    func testPeopleJSONShouldBeParsedToPeopleObject() {
+    func testCorrectPeopleJSONShouldBeParsedToPeopleObject() {
         let receivedPeople = try? decodingService.decode(data: .peopleJSONData, of: People.self)
         XCTAssertNoThrow(try decodingService.decode(data: .peopleJSONData, of: People.self), "People JSON data does not conform to People Type")
         XCTAssertNotNil(receivedPeople, "Data type of People does not exists")
@@ -45,14 +37,14 @@ class DecodingServiceFunctionalTests: XCTestCase {
     
     func testIncorrectJSONShouldNotBeParsedToPeopleObject() {
         let receivedPerson = try? decodingService.decode(data: .personJSONData, of: People.self)
-        XCTAssertThrowsError(try decodingService.decode(data: .peopleJSONData, of: People.self), "???")
-        XCTAssertNotEqual(receivedPerson, referencePeople, "Data does not match")
+        XCTAssertThrowsError(try decodingService.decode(data: .personJSONData, of: People.self), "???")
+        XCTAssertNil(receivedPerson, "Nil is expected")
     }
     
     func testCorrectStringShouldNotBeParsedToPeopleObject() throws {
         let receivedPeople = try? decodingService.decode(data: .peopleJSONData, of: Person.self)
-        XCTAssertThrowsError(try decodingService.decode(data: .peopleJSONData, of: People.self), "???")
-        XCTAssertNil(receivedPeople, "???")
+        XCTAssertThrowsError(try decodingService.decode(data: .peopleJSONData, of: Person.self), "???")
+        XCTAssertNil(receivedPeople, "Nil is xepected")
     }
     
     func testCorrectPersonJSONShouldBeParsedToPersonObject() {
@@ -64,12 +56,12 @@ class DecodingServiceFunctionalTests: XCTestCase {
     
     func testIncorrectJSONShouldNotBeParsedToPersonObject() {
         let receivedPerson = try? decodingService.decode(data: .peopleJSONData, of: Person.self)
-        XCTAssertThrowsError(try decodingService.decode(data: .personJSONData, of: Person.self), "Person JSON Data does not match with Person type")
-        XCTAssertNotEqual(receivedPerson, referencePerson, "Data does not match")
+        XCTAssertThrowsError(try decodingService.decode(data: .peopleJSONData, of: Person.self), "Person JSON Data does not match with Person type")
+        XCTAssertNil(receivedPerson, "Nil is expected")
     }
     
     func testCorrectPersonJSONShouldNotBeParsedToPersonObject() {
-        let receivedPerson = try? decodingService.decode(data: .personJSONData, of: Person.self)
+        let receivedPerson = try? decodingService.decode(data: .peopleJSONData, of: Person.self)
         XCTAssertThrowsError(try decodingService.decode(data: .personJSONData, of: People.self), "Person Data does not conform to People type")
         XCTAssertNil(receivedPerson, "The data cannot be after removing")
     }

@@ -15,7 +15,7 @@ struct Person: Decodable, Identifiable, Equatable {
     let films, species, vehicles, starships: [String]
     let created, edited: String
     let url: String
-    let id = UUID()
+    var id: String { url }
     
     enum CodingKeys: String, CodingKey {
         case name, height, mass
