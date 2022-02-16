@@ -9,7 +9,7 @@ import Foundation
 
 import Combine
 
-final class DetailedDataViewModel: ObservableObject {
+final class DetailedPeopleDataViewModel: ObservableObject {
     @Published var person: Person?
     @Published var shouldPresentError = false
     private let url: URL

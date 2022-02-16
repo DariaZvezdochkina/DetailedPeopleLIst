@@ -44,13 +44,7 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment> { state, action, e
 struct ContentView: View {
     let store: Store<AppState, AppAction>
     
-    @ObservedObject private var viewModel: ContentViewModel
-    
-    init(
-        viewModel: ContentViewModel = .init(),
-        store: Store<AppState, AppAction>
-    ) {
-        self.viewModel = viewModel
+    init(store: Store<AppState, AppAction>) {
         self.store = store
     }
     
@@ -59,7 +53,7 @@ struct ContentView: View {
             WithViewStore(store) { viewStore in
                 List {
                     ForEach(viewStore.results) { item in
-                        NavigationLink(destination: DetailedDataView(viewModel: .init(url: URL(string: item.url)!))) {
+                        NavigationLink(destination: DetailedPeopleDataView(viewModel: .init(url: URL(string: item.url)!))) {
                             VStack {
                                 Text(item.name)
                             }

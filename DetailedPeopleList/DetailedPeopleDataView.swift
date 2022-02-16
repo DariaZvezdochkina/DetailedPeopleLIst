@@ -6,12 +6,12 @@
 //
 import SwiftUI
 
-struct DetailedDataView: View {
+struct DetailedPeopleDataView: View {
     
-    @ObservedObject private var viewModel: DetailedDataViewModel
+    @ObservedObject private var viewModel: DetailedPeopleDataViewModel
     @State var shouldPresentError = false
     
-    init(viewModel: DetailedDataViewModel) {
+    init(viewModel: DetailedPeopleDataViewModel) {
         self.viewModel = viewModel
     }
     
@@ -56,9 +56,9 @@ struct DetailedDataView: View {
     }
 }
 
-struct DetailedDataView_Previews: PreviewProvider {
+struct DetailedPeopleDataView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailedDataView(viewModel: .init(url: URL(string: "https://swapi.dev/api/people/1/")!))
+        DetailedPeopleDataView(viewModel: .init(url: URL(string: "https://swapi.dev/api/people/1/")!))
     }
 }
 

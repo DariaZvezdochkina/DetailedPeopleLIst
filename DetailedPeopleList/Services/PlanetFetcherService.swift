@@ -7,9 +7,9 @@
 
 import Foundation
 
-private class PlanetFetcherService {
-    let networkingService: NetworkService
-    let decodingService: DecodingService
+final class PlanetFetcherService {
+    private let networkingService: NetworkService
+    private let decodingService: DecodingService
     
     init(networkingService: NetworkService = .init(), decodingService: DecodingService = .init()) {
         self.networkingService = networkingService
@@ -24,7 +24,7 @@ private class PlanetFetcherService {
 }
 
 extension URL {
-    static var url: URL {
+    static var planet: URL {
         guard let url = URL(string: "https://swapi.dev/api/planets/") else {
             fatalError("")
         }
