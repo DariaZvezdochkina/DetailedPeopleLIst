@@ -20,7 +20,7 @@ final class DetailedPlanetViewModel: ObservableObject {
     
     func fetchPlanet() async {
         do {
-            let planet = try await planetFetchingService.fetchPlanet(url: url)
+            planet = try await planetFetchingService.fetchPlanet(url: url)
         } catch {
             print(error.localizedDescription)
         }
