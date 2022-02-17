@@ -56,7 +56,7 @@ struct PlanetsView: View {
             WithViewStore(store) { viewStore in
                 List {
                     ForEach(viewStore.planetsResult) { item in
-                        NavigationLink(destination: DetailedPeopleDataView(viewModel: .init(url: URL(string: item.url)!))) {
+                        NavigationLink(destination: DetailedPlanetsDataView(viewModel: .init(url: URL(string: item.url)!))) {
                             VStack {
                                 Text(item.name)
                             }
